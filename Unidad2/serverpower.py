@@ -2,8 +2,10 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import os
 
-contador = 11
 
+contador = 11
+temperatura = 0
+humedad = 0
 led = False
 
 class MyHTTPRequestHandler(BaseHTTPRequestHandler):
@@ -50,6 +52,14 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
         self._set_response()
         self.wfile.write(json.dumps({"status":led}).encode())
 
+    elif self.path == "/temp":
+        self._set_response()
+        self.wfile.write(json.dumps({"temperatura":temperatura}).encode())
+
+    elif self.path == "/hum":
+        self._set_response()
+        self.wfile.write(json.dumps({"humedad":humedad}).encode())
+
     else:
       # send bad request response
       self.throw_custom_error("Invalid path")
@@ -64,7 +74,43 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
       self.throw_custom_error("Invalid JSON")
       return
 
-    global contador
+    if(self.path == "/temp"):
+      if(body_json.get('temperatura')is None):
+        self.throw_custom_error("Missing Temperature")
+        return
+
+      try:
+        float(body_json["temperatura"])
+      except:
+        self.throw_custom_error("Invalid temperatura")
+        return
+
+      global temperatura
+      temperatura = float(body_json["temperatura"])
+
+      response_data = json.dumps({"message": "Received POST data, new temperatura: " + str(temperatura), "status": "OK"})
+      self._set_response("application/json")
+      self.wfile.write(response_data.encode())
+      return
+    
+    if(self.path == "/hum"):
+      if(body_json.get('humedad')is None):
+        self.throw_custom_error("Missing Humedad")
+        return
+
+      try:
+        float(body_json["humedad"])
+      except:
+        self.throw_custom_error("Invalid Humedad")
+        return
+
+      global humedad
+      humedad = float(body_json["humedad"])
+
+      response_data = json.dumps({"message": "Received POST data, new Humedad: " + str(humedad), "status": "OK"})
+      self._set_response("application/json")
+      self.wfile.write(response_data.encode())
+      return
 
     # Check if action and quantity are present
     if (body_json.get('action') is None or body_json.get('quantity') is None):
@@ -82,7 +128,7 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
     except:
       self.throw_custom_error("Invalid quantity")
       return
-
+    global contador
     if (body_json['action'] == 'asc'):
       contador += int(body_json['quantity'])
     elif (body_json['action'] == 'desc'):
