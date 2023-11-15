@@ -1,0 +1,6 @@
+{
+    "from": "ESP32",
+    "to": "broadcast",
+    "action": "UPDATE_COUNTER",
+    "value": 1
+}
