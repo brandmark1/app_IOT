@@ -1,6 +1,9 @@
 {
-    "from": "ESP32",
-    "to": "broadcast",
-    "action": "UPDATE_COUNTER",
-    "value": 1
+    "from": "web",
+    "to": "server",
+    "action": "SEND_DATA",
+    "data": {
+        "temperature": "50°C",
+        "humidity": "23%"
+        }
 }
