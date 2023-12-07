@@ -134,6 +134,9 @@
                     <li><button id="toggle4" class="led_off">Apagar led baño</button></li>
                     <li><button id="toggle5" class="led_off">Apagar led terraza</button></li>
                     <li><button id="toggle6" class="led_off">Apagar led cuarto de niños</button></li>
+                    <li><button id="toggle7" class="led_off">Apagar Ventilador de la sala</button></li>
+                    <li><button id="toggle8" class="led_off">Apagar Ventilador del cuarto principal</button></li>
+                    <li><button id="toggle9" class="led_off">Apagar Television de la sala</button></li>
                 </ul>
             </div>
             <div id="data-panels" style="display: flex; justify-content: space-around;">
@@ -216,11 +219,11 @@
             if (toggle.className == "led_on") {
                 toggle.className = "led_off";
                 toggle.innerHTML = "Encender cocina";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 0 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ cocina: 0 }));
             } else {
                 toggle.className = "led_on";
                 toggle.innerHTML = "Apagar cocina";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 1 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ cocina: 1 }));
             }
         });
 
@@ -230,11 +233,11 @@
             if (toggle2.className == "led_on") {
                 toggle2.className = "led_off";
                 toggle2.innerHTML = "Encender sala";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 0 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ sala: 0 }));
             } else {
                 toggle2.className = "led_on";
                 toggle2.innerHTML = "Apagar sala";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 1 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ sala: 1 }));
             }
         });
 
@@ -244,11 +247,11 @@
             if (toggle3.className == "led_on") {
                 toggle3.className = "led_off";
                 toggle3.innerHTML = "Encender recamara principal";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 0 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ recamara: 0 }));
             } else {
                 toggle3.className = "led_on";
                 toggle3.innerHTML = "Apagar recamara principal";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 1 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ recamara: 1 }));
             }
         });
 
@@ -258,11 +261,11 @@
             if (toggle4.className == "led_on") {
                 toggle4.className = "led_off";
                 toggle4.innerHTML = "Encender baño";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 0 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ bano: 0 }));
             } else {
                 toggle4.className = "led_on";
                 toggle4.innerHTML = "Apagar baño";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 1 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ bano: 1 }));
             }
         });
 
@@ -272,11 +275,11 @@
             if (toggle5.className == "led_on") {
                 toggle5.className = "led_off";
                 toggle5.innerHTML = "Encender terraza";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 0 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ terraza: 0 }));
             } else {
                 toggle5.className = "led_on";
                 toggle5.innerHTML = "Apagar terraza";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 1 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ terraza: 1 }));
             }
         });
 
@@ -286,18 +289,59 @@
             if (toggle6.className == "led_on") {
                 toggle6.className = "led_off";
                 toggle6.innerHTML = "Encender cuarto de niños";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 0 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ cuarto: 0 }));
             } else {
                 toggle6.className = "led_on";
                 toggle6.innerHTML = "Apagar cuarto de niños";
-                client.publish(PUB_TOPIC, JSON.stringify({ led: 1 }));
+                client.publish(PUB_TOPIC, JSON.stringify({ cuarto: 1 }));
+            }
+        });
+
+        //toggle 7
+        let toggle7 = document.getElementById("toggle7");
+        toggle7.addEventListener("click", (e) => {
+            if (toggle7.className == "led_on") {
+                toggle7.className = "led_off";
+                toggle7.innerHTML = "Encender Ventilador de la sala";
+                client.publish(PUB_TOPIC, JSON.stringify({ ventiladorsala: 0 }));
+            } else {
+                toggle7.className = "led_on";
+                toggle7.innerHTML = "Apagar Ventilador de la sala";
+                client.publish(PUB_TOPIC, JSON.stringify({ ventiladorsala: 1 }));
+            }
+        });
+
+        //toggle 8
+        let toggle8 = document.getElementById("toggle8");
+        toggle8.addEventListener("click", (e) => {
+            if (toggle8.className == "led_on") {
+                toggle8.className = "led_off";
+                toggle8.innerHTML = "Encender Ventilador del cuarto principal";
+                client.publish(PUB_TOPIC, JSON.stringify({ ventiladorprincipal: 0 }));
+            } else {
+                toggle8.className = "led_on";
+                toggle8.innerHTML = "Apagar Ventilador del cuarto principal";
+                client.publish(PUB_TOPIC, JSON.stringify({ ventiladorprincipal: 1 }));
+            }
+        });
+
+        //toggle 9
+        let toggle9 = document.getElementById("toggle9");
+        toggle9.addEventListener("click", (e) => {
+            if (toggle9.className == "led_on") {
+                toggle9.className = "led_off";
+                toggle9.innerHTML = "Encender Television de la sala";
+                client.publish(PUB_TOPIC, JSON.stringify({ television: 0 }));
+            } else {
+                toggle9.className = "led_on";
+                toggle9.innerHTML = "Apagar Television de la sala";
+                client.publish(PUB_TOPIC, JSON.stringify({ television: 1 }));
             }
         });
 
 
 
-
-        
+ 
 
 
         document.getElementById("fetch_data").addEventListener("click", (e) => {
